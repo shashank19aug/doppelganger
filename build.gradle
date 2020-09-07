@@ -1,0 +1,48 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'org.kalki'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	// https://mvnrepository.com/artifact/org.springframework/spring-tx
+	compile group: 'org.springframework', name: 'spring-tx', version: '5.2.8.RELEASE'
+	
+	//compile("org.springframework.boot:spring-boot-starter-log4j2")
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+	//compile group: 'javax.persistence', name: 'persistence-api'
+	compile group: 'org.springframework.data', name: 'spring-data-jpa'
+	//compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.5'
+    compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.6'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+	compile("org.springframework.boot:spring-boot-starter-web") 
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.flywaydb:flyway-core:5.2.3") 
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.3.6.RELEASE'
+	compile group: 'org.springframework', name: 'spring-context-support', version:'4.3.6.RELEASE'
+	//compile group: 'org.springframework', name: 'spring-tx', version: '4.3.6.RELEASE'
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+	
+		
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.10.RELEASE'
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="path">$${env:DOPPELGANGER_LOG_HOME:-logs}</Property>
+		<Property name="logging_level">$${env:DOPPELGANGER_LOGGING_LEVEL:-debug}</Property>
+		<Property name="service-name">doppelganger</Property>
+		<Property name="default-pattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%X{tenant}] [${service-name}] [%t] [%X{stan}] [%level] [%logger{1.}] %msg%n</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>${default-pattern}</Pattern>
+			</PatternLayout>
+		</Console>
+
+		<!-- Rolling File Appender -->
+		<RollingFile name="common" fileName="${path}/common/${service-name}-common.log"
+			filePattern="${path}/common/archived/archived-logs-%d{yyyy-MM}/${service-name}/%d{yyyy-MM-dd}-${service-name}-common.%i.log.gz">
+			<PatternLayout>
+				<pattern>${default-pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<logger name="org.springframework" level="error" />
+		<Logger name="in.novopay" level="${logging_level}" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="common" />
+		</Logger>
+
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="common" />
+		</Root>
+	</Loggers>
+</Configuration>
